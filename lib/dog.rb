@@ -1,85 +1,126 @@
 # Add your code here
-class Owner
-OWNERS = [] 
-attr_accessor :name, :pets 
-attr_reader :species 
+class Fish
+  attr_reader :name
+  attr_accessor :mood
 
-def initialize(species)
-  @species = species 
-  OWNERS << self 
-  @pets = {:fishes => [], :dogs => [], :cats => []}
-end 
-
-def self.all ##Do we have to use this if we use a class variable? @@all 
-OWNERS 
-end 
-
-def self.reset_all 
-OWNERS.clear 
-end 
-
-def self.count
-OWNERS.size 
+  def initialize(name)
+    @name = name
+    @mood = "nervous"
+  end
 end
 
-def species 
-  @species 
-end 
+class Cat
+  attr_reader :name
+  attr_accessor :mood
 
-def say_species 
-  return "I am a #{species}"
-end 
-  
-def name 
-  @name #where did we set @name = name? 
-end 
+  def initialize(name)
+    @name = name
+    @mood = "nervous"
+  end
+end
 
-def buy_fish(name)
-  pets[:fishes] << Fish.new(name) #how does owner.rb know where fish.rb is? 
-end 
+class Dog
+  attr_reader :name
+  attr_accessor :mood
 
-def buy_cat(name)
-  pets[:cats] << Cat.new(name)
-end 
+  def initialize(name)
+    @name = name
+    @mood = "nervous"
+  end
 
-def buy_dog(name)
-  pets[:dogs] << Dog.new(name)
-end 
+end
 
-def walk_dogs
-  pets[:dog].each do |dog|
-    dog.mood = "happy"
-  end 
-end 
+class Owner
+  attr_reader :species
+  attr_accessor :name, :pets, :fish, :dog, :cat
 
-def play_with_cats
-  pets[:cats].each do |cat| 
-  cat.mood = "Happy"
-  end 
-end 
+  @@all = []
+  @@pets = {:fishes => [], :dogs => [], :cats => []}
 
-def feed_fish
-  pets[:fish].each do |fish|
-  fish.mood = "happy"
-  end 
-end 
+  def initialize(species)
+    @species = species
+    @name = name
+    @@all << self
+  end
 
-def list_pets
-  "I have #{pets[:fishes].count} fish. I have #{pets[:cats].count} cats. I have #{pets[:dogs].count} dogs."
-end 
+  def self.all
+    @@all
+  end
 
-end #finish Owner 
+  def self.count
+    @@all.length
+  end
 
-class Fish 
-attr_reader :name 
-attr_accessor :mood 
+  def self.reset_all
+    @@all.clear
+  end
 
-def initialize 
-  @name = name 
-  @mood = "nervous"
-end 
+  def say_species
+    "I am a #{@species}."
+  end
 
-end 
+  def pets
+    @@pets
+  end
+
+  def buy_fish(fish)
+    @@pets[:fishes] << Fish.new(fish)
+  end
+
+  def buy_cat(cat)
+    @@pets[:cats] << Cat.new(cat)
+  end
+
+  def buy_dog(dog)
+    @@pets[:dogs] << Dog.new(dog)
+  end
+
+  def walk_dogs
+    @@pets[:dogs].each do |dog|
+      dog.mood = 'happy'
+    end
+  end
+
+  def play_with_cats
+    @@pets[:cats].each do |cat|
+      cat.mood = 'happy'
+    end
+  end
+
+  def feed_fish
+    @@pets[:fishes].each do |fish|
+      fish.mood = 'happy'
+    end
+  end
+
+  def list_pets
+    "I have #{pets[:fishes].length} fish, #{pets[:dogs].length} dog(s), and #{pets[:cats].length} cat(s)."
+  end
+
+  def sell_pets
+    pets.each do |pet, arr|
+      arr.map do |pet|
+        pet.mood = 'nervous'
+      end
+      arr.clear
+    end
+  end
+
+end
+
+human = Owner.new("human")
+human2 = Owner.new("human2")
+
+Owner.all
+
+human.buy_fish("bubbles")
+human.buy_fish("flounder")
+human.buy_cat("fluffy")
+human.buy_cat("whiskers")
+human.buy_dog("fido")
+human.buy_dog("maestro")
+
+human.list_pets
 
 
 
