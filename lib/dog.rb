@@ -18,9 +18,13 @@ end
 def Dog.clear_all
   @@all.clear
 end
+
 def Dog.print_all
   @@all.print_all
+  puts name
 end
+
+
 end
 
 
