@@ -23,7 +23,7 @@ def Dog.print_all
   @@all.print_all
   puts name
 end
-
+name
 
 end
 
