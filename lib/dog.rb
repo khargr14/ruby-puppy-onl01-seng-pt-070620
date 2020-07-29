@@ -18,7 +18,9 @@ end
 def Dog.clear_all
   @@all.clear
 end
-
+def Dog.print
+  @@all.print
+end
 end
 
 
